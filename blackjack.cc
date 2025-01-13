@@ -160,6 +160,6 @@ int main() {
         }
         cout << "Insert bet: ";
     }
-    cout << "hello" << endl;
+    cout << "hello world!" << endl;
     return 0;
 }
