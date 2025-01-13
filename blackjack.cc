@@ -160,5 +160,6 @@ int main() {
         }
         cout << "Insert bet: ";
     }
+    cout << "hello" << endl;
     return 0;
 }
