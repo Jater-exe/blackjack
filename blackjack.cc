@@ -147,7 +147,11 @@ int main() {
 
     int current_pos = 0;
     cout << "Insert bet: ";
-    while (cin >> bet && balance >= bet) {
+    while (cin >> bet and balance >= bet) {
+        if (current_pos > 50) {
+            shuffle(main_deck);
+            current_pos = 0;
+        }
         cout << "Your bet: " << bet << "€\n";
         cout << "Your bet: " << bet << "€\n";
         balance -= bet;
