@@ -149,6 +149,7 @@ int main() {
     cout << "Insert bet: ";
     while (cin >> bet && balance >= bet) {
         cout << "Your bet: " << bet << "€\n";
+        cout << "Your bet: " << bet << "€\n";
         balance -= bet;
 
         bet_sequence(main_deck, current_pos, bet, balance);
@@ -160,6 +161,5 @@ int main() {
         }
         cout << "Insert bet: ";
     }
-    cout << "hello world!" << endl;
     return 0;
 }
