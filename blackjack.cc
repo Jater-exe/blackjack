@@ -3,16 +3,15 @@
 #include <string>
 #include <random>
 #include <algorithm>
+//using namespace std;
 
-using namespace std;
-
-typedef vector<string> Deck;
+typedef std::vector<std::string> Deck;
 
 // Function to generate a random number for shuffling
 int random_num() {
-    static random_device rd;
-    static mt19937 gen(rd());
-    uniform_int_distribution<int> distrib(0, 51);
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> distrib(0, 51);
     return distrib(gen);
 }
 
@@ -31,7 +30,7 @@ Deck bland_suit() {
         else if (i == 11) result[i - 1] = "J";
         else if (i == 12) result[i - 1] = "Q";
         else if (i == 13) result[i - 1] = "K";
-        else result[i - 1] = to_string(i);
+        else result[i - 1] = std::to_string(i);
     }
     return result;
 }
@@ -77,22 +76,22 @@ void bet_sequence(Deck& deck, int& active_pos, int& bet, int& balance) {
     }
     bool dealer_busted = (dealer_sum > 21);
 
-    cout << "Dealer's cards: **";
+    std::cout << "Dealer's cards: **";
     for (int i = 1; i < dealer_cards.size(); i++) {
-        cout << ' ' << dealer_cards[i];
+        std::cout << ' ' << dealer_cards[i];
     }
-    cout << endl;
+    std::cout << std::endl;
 
     // Player's turn
     bool player_stands = false, player_busted = false;
     while (not player_stands) {
-        cout << "Your cards: ";
-        for (const auto& card : player_cards) cout << card << " ";
-        cout << "\nCurrent total: " << player_sum << "\n";
+        std::cout << "Your cards: ";
+        for (const auto& card : player_cards) std::cout << card << " ";
+        std::cout << "\nCurrent total: " << player_sum << "\n";
 
-        string action;
-        cout << "Choose action (Hit/Stand/Double): ";
-        cin >> action;
+        std::string action;
+        std::cout << "Choose action (Hit/Stand/Double): ";
+        std::cin >> action;
 
         if (action == "Hit" or action == "Double") {
             if (action == "Double") {
@@ -111,7 +110,7 @@ void bet_sequence(Deck& deck, int& active_pos, int& bet, int& balance) {
         } else if (action == "Stand") {
             player_stands = true;
         } else {
-            cout << "Invalid action. Try again.\n";
+            std::cout << "Invalid action. Try again.\n";
         }
 
         if (player_sum > 21) {
@@ -120,22 +119,22 @@ void bet_sequence(Deck& deck, int& active_pos, int& bet, int& balance) {
         }
     }
 
-    cout << "Final Player Total: " << player_sum << "\n";
-    cout << "Dealer's cards: ";
-    for (const auto& card : dealer_cards) cout << card << " ";
-    cout << "\nDealer Total: " << dealer_sum << "\n";
+    std::cout << "Final Player Total: " << player_sum << "\n";
+    std::cout << "Dealer's cards: ";
+    for (const auto& card : dealer_cards) std::cout << card << " ";
+    std::cout << "\nDealer Total: " << dealer_sum << "\n";
 
     // Determine the result
     if (player_busted) {
-        cout << "You busted. You lose!\n";
+        std::cout << "You busted. You lose!\n";
     } else if (dealer_busted or player_sum > dealer_sum) {
         balance += bet * 1.5;
-        cout << "You win! Net earnings: " << bet*0.5 << "\n";
+        std::cout << "You win! Net earnings: " << bet*0.5 << "\n";
     } else if (player_sum == dealer_sum) {
         balance += bet;
-        cout << "It's a draw. Your bet is returned.\n";
+        std::cout << "It's a draw. Your bet is returned.\n";
     } else {
-        cout << "You lose!\n";
+        std::cout << "You lose!\n";
     }
 }
 
@@ -146,24 +145,24 @@ int main() {
     shuffle(main_deck);
 
     int current_pos = 0;
-    cout << "Insert bet: ";
-    while (cin >> bet and balance >= bet) {
+    std::cout << "Insert bet: ";
+    while (std::cin >> bet and balance >= bet) {
         if (current_pos > 50) {
             shuffle(main_deck);
             current_pos = 0;
         }
-        cout << "Your bet: " << bet << "€\n";
-        cout << "Your bet: " << bet << "€\n";
+        std::cout << "Your bet: " << bet << "€\n";
+        std::cout << "Your bet: " << bet << "€\n";
         balance -= bet;
 
         bet_sequence(main_deck, current_pos, bet, balance);
 
-        cout << "New balance: " << balance << "€\n";
+        std::cout << "New balance: " << balance << "€\n";
         if (balance <= 0) {
-            cout << "You ran out of balance. Game over!\n";
+            std::cout << "You ran out of balance. Game over!\n";
             break;
         }
-        cout << "Insert bet: ";
+        std::cout << "Insert bet: ";
     }
     return 0;
 }
