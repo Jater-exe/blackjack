@@ -1,0 +1,3 @@
+/home/jaumetr/Escriptori/bowlapp/blackjack/cmake-sfml-project/build/_deps/sfml-subbuild/CMakeFiles/sfml-populate.dir
+/home/jaumetr/Escriptori/bowlapp/blackjack/cmake-sfml-project/build/_deps/sfml-subbuild/CMakeFiles/edit_cache.dir
+/home/jaumetr/Escriptori/bowlapp/blackjack/cmake-sfml-project/build/_deps/sfml-subbuild/CMakeFiles/rebuild_cache.dir
