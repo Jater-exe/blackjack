@@ -1,3 +1,1 @@
-echo "Give me a name: "
-read NAME
-g++ $NAME.cc -o $NAME.x
+g++ main.cpp -o program -lsfml-graphics -lsfml-window -lsfml-system
