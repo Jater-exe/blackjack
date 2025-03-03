@@ -3,6 +3,7 @@
 #include <string>
 #include <random>
 #include <algorithm>
+#include "main.hpp"
 //using namespace std;
 
 typedef std::vector<std::string> Deck;
