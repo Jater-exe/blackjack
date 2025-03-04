@@ -153,7 +153,7 @@ int main() {
 		action_buttons[2].setTextureRect(action[stand]);
 
 		//active cards display
-		std::vector<sf::Sprite> 
+		//std::vector<sf::Sprite> 
 
 
 
