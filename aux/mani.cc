@@ -1,4 +1,4 @@
-#include "main.hpp"
+#include "mani.hh"
 
 
 /*SPRITE TEXTURE SIZES
