@@ -3,7 +3,8 @@
 #include <string>
 #include <random>
 #include <algorithm>
-//using namespace std;
+#include "main.hh"
+#include "blackjack.hh"
 
 typedef std::vector<std::string> Deck;
 
@@ -137,7 +138,7 @@ void bet_sequence(Deck& deck, int& active_pos, int& bet, int& balance) {
         std::cout << "You lose!\n";
     }
 }
-
+/*
 int main() {
     int balance = 500;
     int bet;
@@ -166,3 +167,4 @@ int main() {
     }
     return 0;
 }
+    */

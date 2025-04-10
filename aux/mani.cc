@@ -1,4 +1,5 @@
-#include "main.hpp"
+#include "mani.hh"
+
 
 /*SPRITE TEXTURE SIZES
 * CARD BACKGROUND:60x40 (2 items)
@@ -69,6 +70,12 @@ int main() {
 	for (int i = 0; i < 10; i++) {
 		value[i] = sf::IntRect({{0, 8*i}, {8, 8}});
 	}
+
+	//IntRect for action buttons buttons
+	sf::IntRect action[3];
+	for (int i = 0; i < 3; i++) {
+		action[i] = sf::IntRect({{48*i, 0}, {48, 16}});
+	}
 	
 	//Game setup
 	int balance = 500;
@@ -79,6 +86,17 @@ int main() {
     int current_pos = 0;
 
 	while (window.isOpen()) {
+
+		//event management
+		sf::Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
+				window.close();
+			}
+		}
+
+
+
 
 		//balance display
 		std::vector<int> separated_balance = int_to_vec(balance);
@@ -123,14 +141,19 @@ int main() {
 			}
 			balance_displayed[i].setPosition({(width / 1.5f) + i*8, height / 1.5f});
 		}
-
-		//event management
-		sf::Event event;
-		while (window.pollEvent(event)) {
-			if (event.type == sf::Event::Closed) {
-				window.close();
-			}
+		
+		//buttons display
+		std::vector<sf::Sprite> action_buttons(3);
+		for (int i = 0; i < 3; i++) {
+			action_buttons[i].setTexture(buttons);
+			action_buttons[i].setPosition({width/10.0f +i*48, height/1.2f});
 		}
+		action_buttons[0].setTextureRect(action[hit]);
+		action_buttons[1].setTextureRect(action[d_down]);
+		action_buttons[2].setTextureRect(action[stand]);
+
+		//active cards display
+		//std::vector<sf::Sprite> 
 
 
 
@@ -140,6 +163,7 @@ int main() {
 		for (int i = 0; i < length; ++i) {
 			window.draw(balance_displayed[i]);
 		}
+		for (int i = 0; i < 3; ++i) window.draw(action_buttons[i]);
 
 
 		//Draw

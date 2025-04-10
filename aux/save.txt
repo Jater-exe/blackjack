@@ -10,3 +10,7 @@
 			balance_displayed[i] = number;
 			balance_displayed[i].setTextureRect(value[separated_balance[i]-1]);
 		}*/
+
+
+to change branch:
+git checkout branch_name
