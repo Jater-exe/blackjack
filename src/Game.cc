@@ -68,7 +68,11 @@ void Game::processEvents() {
 }
 
 void Game::update() {
-    
+    if (hit_bet) {}
+	else if (double_bet) {}
+	else if (stand) {}
+	else if (increment_bet) {}
+	else if (decrease_bet) {}
 }
 
 void Game::render() {
