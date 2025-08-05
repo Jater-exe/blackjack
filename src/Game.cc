@@ -1,4 +1,4 @@
-#include "../include/Game.h"
+#include "../include/Game.hh"
 
 
 /*SPRITE TEXTURE SIZES
@@ -11,9 +11,12 @@
 * Resizable in Piskel
 */
 
+//game_seq: (input bet) -> decision
+
 Game::Game() : window(sf::VideoMode(1280, 720), "Blackjack") {
-	unsigned int width = 1280;
-    unsigned int height = 720;
+	running_ = true;
+	//unsigned int width = 1280;
+    //unsigned int height = 720;
 	
     //Initialize
 	window.setFramerateLimit(60);
@@ -42,6 +45,13 @@ Game::Game() : window(sf::VideoMode(1280, 720), "Blackjack") {
 	textures["nums"] = nums;
 	textures["cards"] = cards;
 
+	/* std::vector<std::vector<sf::IntRect> > cards_rect[4][13];
+	for (int i = 0; i < 4; ++i) {
+		for (int j = 0; j < 13; ++j) {
+			cards_rect[i].push_back(sf::IntRect({{40*j, 60*i}, {40, 60}}));
+		}
+	} */
+
 	deck = unshuffled_deck();
 	shuffle(deck);
 
@@ -52,9 +62,9 @@ Game::Game() : window(sf::VideoMode(1280, 720), "Blackjack") {
 
 void Game::run() {
 
-	while (true) {
-        //processEvents();
-        //update();
+	while (running_) {
+        processEvents();
+        update();
         render();
     }
 }
@@ -112,7 +122,7 @@ void Game::update() {
 
 void Game::render() {
 	window.clear(sf::Color(0x50912700));
-	window.draw(deck[0].getSprite());
+	window.draw(deck[3].getSprite());
 	window.display();
 
 }
@@ -193,13 +203,15 @@ Deck Game::unshuffled_deck() {
 				value = 10;
 				break;
 		}
-		Card c(family, name, value)
+		Card c(family, name, value, textures["cards"]);
+		c.getSprite().setTextureRect(sf::IntRect({{40*set_value, 60*suit}, {40, 60}}));
+		result[i] = c;
 	}
 	return result;
 }
 
 void Game::shuffle(Deck& unshuffled) {
-    for (int i = 0; i < unshuffled.size(); i++) {
+    for (auto i = 0U; i < unshuffled.size(); i++) {
         swap(unshuffled, i, random_num());
     }
 }
@@ -211,10 +223,20 @@ int Game::random_num() {
     return distrib(gen);
 }
 
+/**
+ * @brief Determines if an action can be carried out based on a keyboard input and executes it
+ * H = Hit,
+ * D = Double,
+ * S = Stand,
+ * Right = increase,
+ * Left = decrease
+ * @param event an event taken from pollEvents
+ */
 void Game::key_actions(sf::Event& event){
 	switch (event.key.scancode) {
 		case sf::Keyboard::Scan::Escape:
 			window.close();
+			running_ = false;
 			break;
 		case sf::Keyboard::Scan::H:
 			hit_bet = true;
@@ -265,7 +287,7 @@ void Game::swap(Deck d, int pos1, int pos2) {
 void Game::check_end_round() {
 	int player_aces = count_aces(player_cards);
 	int player_sum = 0;
-	for (int i = 0; i < player_cards.size(); ++i) {
+	for (auto i = 0U; i < player_cards.size(); ++i) {
 		player_sum += player_cards[i].getValue();
 	}
 	while (player_sum > 21 && player_aces > 0) {
@@ -314,9 +336,9 @@ void Game::endround_seq() {
 	reset();
 }
 
-int count_aces(Deck& d) {
+int Game::count_aces(Deck& d) {
 	int result = 0;
-	for (int i = 0; i < d.size(); ++i) {
+	for (auto i = 0U; i < d.size(); ++i) {
 		if (d[i].getName() == "Ace") result++;
 	}
 	return result;
@@ -330,7 +352,7 @@ void Game::active_pos_sum() {
 int Game::cards_sum(Deck& d) {
 	int d_aces = 0;
 	int result = 0;
-	for (int i = 0; i < d.size(); ++i) {
+	for (auto i = 0U; i < d.size(); ++i) {
 		if (d[i].getName() == "Ace") d_aces++;
 		result += d[i].getValue();
 	}

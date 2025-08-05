@@ -15,8 +15,11 @@ private:
 
 public:
     // Constructor
-    Card(char family, std::string name, int value, sf::Texture& texture);
-
+    Card() {}
+    Card(char family, std::string name, int value, sf::Texture& texture)
+    : family_(family), name_(name), value_(value) {
+        sprite.setTexture(texture);
+    }
     char getFamily() const;
     
     std::string getName() const;

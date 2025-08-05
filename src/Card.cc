@@ -1,9 +1,4 @@
-#include "../include/Card.h"
-
-Card::Card(char family, std::string name, int value, sf::Texture& texture)
-    : family_(family), name_(name), value_(value) {
-        sprite.setTexture(texture);
-    }
+#include "../include/Card.hh"
 
 char Card::getFamily() const {
     return family_;

@@ -7,7 +7,7 @@
 #include <iostream>
 #include <random>
 #include <algorithm>
-#include "Card.h"  // If game logic involves cards
+#include "Card.hh"  // If game logic involves cards
 
 typedef std::vector<Card> Deck;
 
@@ -17,12 +17,15 @@ public:
     void run();  // Main game loop
 
 private:
+    bool running_;
     // Vectors for sprites (or any other game objects)
     sf::RenderWindow window;
     Deck deck;
     Deck player_cards;
     Deck dealer_cards;
     std::map<std::string, sf::Texture> textures;
+    //true -> input bet stage | false -> decision stage
+    bool game_seq = false;
     bool hit_bet = false;
     bool double_bet = false;
     bool stand = false;
